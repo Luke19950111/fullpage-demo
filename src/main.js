@@ -13,7 +13,8 @@ new Vue({
           bgColor: ['#30c', '#c03', '#c30', '#3c0', '#03c'],
           curIndex: 0,
           name: '',
-          canWheel: true
+          canWheel: true,
+          endCount: 0
       }
   },
   methods: {
@@ -26,6 +27,7 @@ new Vue({
               this.name = 'down'
               if(this.curIndex >= this.bgColor.length-1){
                   this.canWheel = true
+                  this.endCount = 0
                   return
               }
               this.curIndex ++;
@@ -34,13 +36,18 @@ new Vue({
               this.name = 'up'
               if(this.curIndex === 0){
                   this.canWheel = true
+                  this.endCount = 0
                   return
               }
               this.curIndex --;
           }
       },
       end(){
-          this.canWheel = true
+          this.endCount ++;
+          if(this.endCount == 2){
+            this.canWheel = true
+            this.endCount = 0
+          }
       }
   },
 })
