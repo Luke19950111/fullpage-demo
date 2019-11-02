@@ -11,15 +11,36 @@ new Vue({
   data(){
       return{
           bgColor: ['#30c', '#c03', '#c30', '#3c0', '#03c'],
-          curIndex: 0
+          curIndex: 0,
+          name: '',
+          canWheel: true
       }
   },
   methods: {
       onWheelScroll(e){
-          console.log(e, 'eee')
-          if(e.deltaY > 0){
-              this.curIndex ++
+          if(!this.canWheel){
+              return
           }
+          this.canWheel = false
+          if(e.deltaY > 0){
+              this.name = 'down'
+              if(this.curIndex >= this.bgColor.length-1){
+                  this.canWheel = true
+                  return
+              }
+              this.curIndex ++;
+          }
+          if(e.deltaY < 0){
+              this.name = 'up'
+              if(this.curIndex === 0){
+                  this.canWheel = true
+                  return
+              }
+              this.curIndex --;
+          }
+      },
+      end(){
+          this.canWheel = true
       }
   },
 })

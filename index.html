@@ -26,7 +26,7 @@
         }
         .down-leave-active{
             transition: all 1s ease;
-            transform: translateY(-100%);
+            /* transform: translateY(-100%); */
         }
         .down-enter{
             transform: translateY(100%);
@@ -34,13 +34,32 @@
         .down-enter-to{
             transform: translateY(0);
         }
+        .down-leave-to{
+            transform: translateY(-100%);
+        }
+
+        .up-enter-active{
+            transition: all 1s ease;
+        }
+        .up-leave-active{
+            transition: all 1s ease;
+        }
+        .up-enter{
+            transform: translateY(-100%);
+        }
+        .up-enter-to{
+            transform: translateY(0);
+        }
+        .up-leave-to{
+            transform: translateY(100%);
+        }
     </style>
   </head>
   <body>
     <div id="app">
-        <transition-group tag="div" name="down">
+        <transition-group tag="div" :name="name">
             <div class="block" v-for="(list,index) in bgColor" :key="list" :style="{background:list}" v-show="index==curIndex"
-            @wheel="onWheelScroll">{{list}}</div>
+            @wheel="onWheelScroll" @transitionend="end">{{list}}</div>
         </transition-group>
     </div>
     <!-- built files will be auto injected -->
