@@ -3,9 +3,9 @@
     <transition-group tag="div" :name="name">
       <div
         class="block"
-        v-for="(list,index) in bgColor"
+        v-for="(list,index) in pages"
         :key="list"
-        :style="{background:list}"
+        :style="{'background': bgColor&&bgColor[index]?bgColor[index]:baseColor}"
         v-show="index==curIndex"
         @wheel="onWheelScroll"
         @transitionend="end"
@@ -18,9 +18,21 @@
 
 <script>
   export default {
+    props: {
+        bgColor: {
+            type: Array
+        },
+        baseColor: {
+            default: '#c30'
+        },
+        pages: {
+            type: Number,
+            required: true
+        }
+    },
     data() {
       return {
-        bgColor: ["#30c", "#c03", "#c30", "#3c0", "#03c"],
+        
         curIndex: 0,
         name: "",
         canWheel: true,
@@ -35,7 +47,7 @@
         this.canWheel = false;
         if (e.deltaY > 0) {
           this.name = "down";
-          if (this.curIndex >= this.bgColor.length - 1) {
+          if (this.curIndex >= this.pages - 1) {
             this.canWheel = true;
             this.endCount = 0;
             return;
