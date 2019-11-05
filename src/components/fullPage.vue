@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @wheel="onWheelScroll">
     <transition-group tag="div" :name="name">
       <div
         class="block"
@@ -7,10 +7,11 @@
         :key="list"
         :style="{'background': bgColor&&bgColor[index]?bgColor[index]:baseColor}"
         v-show="index==curIndex"
-        @wheel="onWheelScroll"
+        
         @transitionend="end"
       >
         {{ list }}
+        <slot v-if="index===0"></slot>
       </div>
     </transition-group>
   </div>
