@@ -20,7 +20,10 @@
   <body>
     <div id="app">
         <full-page :bg-color='bgColor' :pages='5'>
-            <template scope="props">
+            <template scope="props" slot="slot2">
+                <page-1 :state="props.state"></page-1>
+            </template>
+            <template scope="props" slot="slot3">
                 <page-1 :state="props.state"></page-1>
             </template>
         </full-page>

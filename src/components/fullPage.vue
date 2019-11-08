@@ -11,7 +11,7 @@
         @transitionend="end"
       >
         {{ list }}
-        <slot v-if="index===1" :state="state"></slot>
+        <slot v-for="slotIndex in pages" :name="'slot'+slotIndex" v-if="index+1===slotIndex" :state="state"></slot>
       </div>
     </transition-group>
   </div>
@@ -74,10 +74,12 @@
         }
         this.state = 'transitionend'
       },
-      enter(){
+      enter(el, done){
         this.state = 'enter'
+        // done()
+        //vue过渡javascript钩子，在enter和leave中，如果做了相应元素的处理，必须用done()，没有处理元素不用done()
       },
-      leave(){
+      leave(el, done){
         this.state = 'leave'
       }
     }
