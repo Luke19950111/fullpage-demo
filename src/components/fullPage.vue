@@ -1,6 +1,6 @@
 <template>
   <div @wheel="onWheelScroll">
-    <transition-group tag="div" :name="name">
+    <transition-group tag="div" :name="name" @enter="enter" @leave="leave">
       <div
         class="block"
         v-for="(list,index) in pages"
@@ -11,7 +11,7 @@
         @transitionend="end"
       >
         {{ list }}
-        <slot v-if="index===0"></slot>
+        <slot v-if="index===1" :state="state"></slot>
       </div>
     </transition-group>
   </div>
@@ -37,7 +37,8 @@
         curIndex: 0,
         name: "",
         canWheel: true,
-        endCount: 0
+        endCount: 0,
+        state: ''
       };
     },
     methods: {
@@ -71,6 +72,13 @@
           this.canWheel = true;
           this.endCount = 0;
         }
+        this.state = 'transitionend'
+      },
+      enter(){
+        this.state = 'enter'
+      },
+      leave(){
+        this.state = 'leave'
       }
     }
   };
